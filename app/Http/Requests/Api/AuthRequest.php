@@ -10,7 +10,8 @@ class AuthRequest extends BaseRequest
     protected function methodPost()
     {
         return [
-            'name' => 'nullable|string',
+            'username' => 'required|string',
+            'fullname' => 'nullable|string',
             'password' => 'required|string',
             'email' => 'required|string|email|unique:users,email',
         ];
