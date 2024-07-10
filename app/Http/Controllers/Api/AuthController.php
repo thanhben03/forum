@@ -47,7 +47,7 @@ class AuthController extends Controller
 
         $user = $this->service->store($request);
         $this->user = [
-            'username' => $user->name,
+            'username' => $user->username,
             'email' => $user->email,
         ];
         $token = auth('api')->login($user);
