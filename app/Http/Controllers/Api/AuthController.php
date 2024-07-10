@@ -6,6 +6,7 @@ use App\Api\Repositories\User\UserRepositoryInterface;
 use App\Api\Services\User\UserServiceInterface;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\AuthRequest;
+use App\Http\Requests\Api\RegisterRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -42,10 +43,9 @@ class AuthController extends Controller
         return $this->respondWithToken($token);
     }
 
-    public function register(Request $request){
-        $data = $request->all();
+    public function register(RegisterRequest $request){
 
-        $user = User::create($data);
+        $user = $this->service->store($request);
         $this->user = [
             'username' => $user->name,
             'email' => $user->email,

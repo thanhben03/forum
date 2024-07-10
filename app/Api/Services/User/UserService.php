@@ -29,23 +29,8 @@ class UserService implements UserServiceInterface
     {
 
         $data = $request->validated();
-        $data['password'] = bcrypt($data['password']);
-        $data['feature_image'] = $request['feature_image'];
-        $data['longitude'] = $request['lng'];
-        $data['latitude'] = $request['lat'];
-
-
         $user = $this->repository->create($data);
-        if (empty($this->data['notification_preference'])) {
-            $data['notification_preference'] = AutoNotification::Off;
-        }
-        if ($user) {
-            $userId = $user->id;
-            $cartData = ['user_id' => $userId];
-            $this->cartRepository->create($cartData);
-            $pointsData = ['user_id' => $userId, 'total_score' => 0];
-            $this->pointRepository->create($pointsData);
-        }
+
         return $user;
     }
 
